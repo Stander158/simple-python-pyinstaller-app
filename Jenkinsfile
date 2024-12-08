@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.9'
+        }
+    }
     options {
         skipStagesAfterUnstable()
     }
@@ -22,7 +26,6 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
-                # Run tests using pytest
                 py.test --junit-xml test-reports/results.xml sources/test_calc.py
                 '''
             }
