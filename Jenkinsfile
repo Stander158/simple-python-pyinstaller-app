@@ -5,14 +5,10 @@ pipeline {
         }
     }
     stages {
-        stage('Checkout') {
+        stage('Build') { 
             steps {
-                checkout scm
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'python -m py_compile sources/add2vals.py sources/calc.py'
+                sh 'python -m py_compile sources/add2vals.py sources/calc.py' 
+                stash(name: 'compiled-results', includes: 'sources/*.py*') 
             }
         }
     }
